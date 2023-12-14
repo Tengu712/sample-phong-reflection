@@ -1,0 +1,39 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  overflow: hidden;
+}
+
+#canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  vertical-align: bottom;
+}
+
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#parameters-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 1rem;
+  color: white;
+  user-select: none;
+}
+
+#parameters-wrapper table {
+  margin: 0 1rem;
+}
+
+#parameters-wrapper input {
+  width: 3rem;
+}

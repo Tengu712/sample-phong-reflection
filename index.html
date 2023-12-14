@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="model.json.js"></script>
+  <script type="text/javascript" src="math.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <title>Phong Reflection Sample</title>
+</head>
+
+<body>
+  <div id="canvas-wrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+  <div id="parameters-wrapper">
+    <details>
+      <summary>Model</summary>
+      <table>
+        <tr>
+          <th>parameter</th>
+          <th>x</th>
+          <th>y</th>
+          <th>z</th>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><input type="number" id="model-position-x" value="0"></td>
+          <td><input type="number" id="model-position-y" value="-3"></td>
+          <td><input type="number" id="model-position-z" value="0"></td>
+        </tr>
+        <tr>
+          <td>rotated</td>
+          <td><input type="number" id="model-rotated-x" value="90"></td>
+          <td><input type="number" id="model-rotated-y" value="0"></td>
+          <td><input type="number" id="model-rotated-z" value="0"></td>
+        </tr>
+        <tr>
+          <td>rotating</td>
+          <td><input type="number" id="model-rotating-x" value="0"></td>
+          <td><input type="number" id="model-rotating-y" value="1"></td>
+          <td><input type="number" id="model-rotating-z" value="0"></td>
+        </tr>
+      </table>
+    </details>
+    <details>
+      <summary>Camera</summary>
+      <table>
+        <tr>
+          <th>parameter</th>
+          <th>x</th>
+          <th>y</th>
+          <th>z</th>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><input type="number" id="camera-position-x" value="0"></td>
+          <td><input type="number" id="camera-position-y" value="15"></td>
+          <td><input type="number" id="camera-position-z" value="15"></td>
+        </tr>
+        <tr>
+          <td>look at</td>
+          <td><input type="number" id="camera-look-at-x" value="0"></td>
+          <td><input type="number" id="camera-look-at-y" value="0"></td>
+          <td><input type="number" id="camera-look-at-z" value="0"></td>
+        </tr>
+        <tr>
+          <td>up vector</td>
+          <td><input type="number" id="camera-up-vec-x" value="0"></td>
+          <td><input type="number" id="camera-up-vec-y" value="1"></td>
+          <td><input type="number" id="camera-up-vec-z" value="0"></td>
+        </tr>
+      </table>
+    </details>
+    <details>
+      <summary>Light</summary>
+      <table>
+        <tr>
+          <th>parameter</th>
+          <th>x(r)</th>
+          <th>y(g)</th>
+          <th>z(b)</th>
+        </tr>
+        <tr>
+          <td>position</td>
+          <td><input type="number" id="light-position-x" value="100"></td>
+          <td><input type="number" id="light-position-y" value="100"></td>
+          <td><input type="number" id="light-position-z" value="100"></td>
+        </tr>
+        <tr>
+          <td>ambient</td>
+          <td><input type="number" id="light-ambient-x" min="0" max="1" step="0.1" value="0.5"></td>
+          <td><input type="number" id="light-ambient-y" min="0" max="1" step="0.1" value="0.5"></td>
+          <td><input type="number" id="light-ambient-z" min="0" max="1" step="0.1" value="0.5"></td>
+        </tr>
+        <tr>
+          <td>diffuse</td>
+          <td><input type="number" id="light-diffuse-x" min="0" max="1" step="0.1" value="0.8"></td>
+          <td><input type="number" id="light-diffuse-y" min="0" max="1" step="0.1" value="0.8"></td>
+          <td><input type="number" id="light-diffuse-z" min="0" max="1" step="0.1" value="0.8"></td>
+        </tr>
+        <tr>
+          <td>specular</td>
+          <td><input type="number" id="light-specular-x" min="0" max="1" step="0.1" value="1.0"></td>
+          <td><input type="number" id="light-specular-y" min="0" max="1" step="0.1" value="1.0"></td>
+          <td><input type="number" id="light-specular-z" min="0" max="1" step="0.1" value="1.0"></td>
+        </tr>
+      </table>
+    </details>
+    <details>
+      <summary>Material</summary>
+      <table>
+        <tr>
+          <th>parameter</th>
+          <th>r</th>
+          <th>g</th>
+          <th>b</th>
+        </tr>
+        <tr>
+          <td>ambient</td>
+          <td><input type="number" id="material-ambient-x" min="0" max="1" step="0.1" value="0.2"></td>
+          <td><input type="number" id="material-ambient-y" min="0" max="1" step="0.1" value="0.2"></td>
+          <td><input type="number" id="material-ambient-z" min="0" max="1" step="0.1" value="0.2"></td>
+        </tr>
+        <tr>
+          <td>diffuse</td>
+          <td><input type="number" id="material-diffuse-x" min="0" max="1" step="0.1" value="0.5"></td>
+          <td><input type="number" id="material-diffuse-y" min="0" max="1" step="0.1" value="0.5"></td>
+          <td><input type="number" id="material-diffuse-z" min="0" max="1" step="0.1" value="0.5"></td>
+        </tr>
+        <tr>
+          <td>specular</td>
+          <td><input type="number" id="material-specular-x" min="0" max="1" step="0.1" value="0.8"></td>
+          <td><input type="number" id="material-specular-y" min="0" max="1" step="0.1" value="0.8"></td>
+          <td><input type="number" id="material-specular-z" min="0" max="1" step="0.1" value="0.8"></td>
+        </tr>
+        <tr>
+          <td>shininess</td>
+          <td><input type="number" id="material-shininess" min="0" value="128"></td>
+        </tr>
+      </table>
+    </details>
+  </div>
+</body>
+
+</html>
